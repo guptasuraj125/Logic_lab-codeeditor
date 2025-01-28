@@ -6,8 +6,8 @@ import { X } from "lucide-react";
 import toast from "react-hot-toast";
 
 function ShareSnippetDialog({ onClose }: { onClose: () => void }) {
-  const [title, setTitle] = useState("");
-  const [isSharing, setIsSharing] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [isSharing, setIsSharing] = useState<boolean>(false);
   const { language, getCode } = useCodeEditorStore();
   const createSnippet = useMutation(api.snippets.createSnippet);
 
@@ -22,8 +22,8 @@ function ShareSnippetDialog({ onClose }: { onClose: () => void }) {
       onClose();
       setTitle("");
       toast.success("Snippet shared successfully");
-    } catch (error) {
-      console.log("Error creating snippet:", error);
+    } catch (error: any) {
+      console.error("Error creating snippet:", error); // More detailed logging
       toast.error("Error creating snippet");
     } finally {
       setIsSharing(false);
@@ -78,4 +78,5 @@ function ShareSnippetDialog({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 export default ShareSnippetDialog;
